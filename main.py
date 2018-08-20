@@ -243,7 +243,6 @@ def two_factor(size=8, chars=string.ascii_uppercase + string.digits):   # Functi
     text_body = "Your code is: " + code
     client = Client("AC0969b7fcb8bf56748d697f16ef8ee16a", "aa760f3fa534876dd1dd0de36239dc08")
     client.messages.create(to=text_alert_to, from_=text_alert_from, body=text_body)
-    print(code)
     return code
 
 
