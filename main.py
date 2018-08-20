@@ -1,4 +1,5 @@
 import getpass
+import wmi
 import os
 import time
 import string
@@ -38,7 +39,7 @@ def menu():                                                         #displays th
             logged_in = register_user()                             #calls the register_user function to create a new user
         elif choice == "3":                                        #if user selects option 3
             if logged_in != "":                                    #checks if the logged_in variable is NOT null
-                logged_in = log_out(logged_in)                               #calls the log_out function to log the user out
+                logged_in = log_out()                               #calls the log_out function to log the user out
             else:                                                   #if the logged_in variable IS null
                 print("No user is logged in!\n")                    #prints out that the user cannot log out since they aren't logged in
         elif choice == "4":                                        #if user selects option 4
@@ -60,11 +61,11 @@ def menu_admin(logged_in):                                          #displays ad
         if choice == "1":
             admin_panel(logged_in)
         elif choice == "2":
-            logged_in = register_user(logged_in)
+            logged_in = register_user()
         elif choice == "3":
             if logged_in != "":
-                logged_in = log_out(logged_in)
-                menu(logged_in)
+                logged_in = log_out()
+                menu()
             else:
                 print("No user is logged in!\n")
         elif choice == "4":
@@ -106,16 +107,19 @@ def admin_panel(logged_in):
             success = False
             while success == False:
                 ip = input(str("Connect to: "))
-                print("\nAttempting connectiion to hot " + ip + "\n")
+                print("\nAttempting connection to host " + ip + "\n")
+                os.sleep(3)
                 if ip == "192.168.1.1":
                     username = input("Username: ")
                     password = getpass.getpass()
                     success = True
+                    print("Attempting log in to " + ip)
+                    os.sleep(3)
             ssh = paramiko.SSHClient()
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             ssh.connect(ip, port=22, username=username, password=password, look_for_keys=False, timeout=None)
             os.system('cls')
-            print("\nShell established with host " + ip)
+            print("Shell established with host " + ip)
             stdin, stdout, stderr = ssh.exec_command('cat /proc/version')
             b = stdout.read()
             b = b.decode()
@@ -127,7 +131,7 @@ def admin_panel(logged_in):
                 if (command == "LOG OFF") or (command == "log off"):
                     ssh.close()
                     disconnect = True
-                    print("Log off successful.")
+                    print("\nLog off successful.")
                     time.sleep(2)
                     admin_panel(logged_in)
                 else:
