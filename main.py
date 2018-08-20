@@ -1,11 +1,11 @@
 # Import the designated libraries
-import getpass
-import wmi
 import os
 import time
 import string
 import random
 import socket
+import wmi
+import getpass
 import paramiko
 import requests
 from bs4 import BeautifulSoup
