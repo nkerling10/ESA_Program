@@ -238,11 +238,11 @@ def menu_admin(logged_in):      # Function that displays the admin specific sele
 
 def two_factor(size=8, chars=string.ascii_uppercase + string.digits):   # Function to generate and send the 2 factor authentication SMS code
     code = ''.join(random.choice(chars) for _ in range(size))
-    #text_alert_from = +15074811128
-    #text_alert_to = +15074408674
-    #text_body = "Your code is: " + code
-    #client = Client("AC0969b7fcb8bf56748d697f16ef8ee16a", "aa760f3fa534876dd1dd0de36239dc08")
-    #client.messages.create(to=text_alert_to, from_=text_alert_from, body=text_body)
+    text_alert_from = +15074811128
+    text_alert_to = +15074408674
+    text_body = "Your code is: " + code
+    client = Client("AC0969b7fcb8bf56748d697f16ef8ee16a", "aa760f3fa534876dd1dd0de36239dc08")
+    client.messages.create(to=text_alert_to, from_=text_alert_from, body=text_body)
     print(code)
     return code
 
