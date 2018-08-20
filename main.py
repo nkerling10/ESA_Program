@@ -173,11 +173,6 @@ def cred_check():   # Function to handle user login
     failed_login = 0
     logins = dict()
     success = False
-    file_pointer = open('credentials.txt', 'r')
-    for line in file_pointer:
-        line = str.strip(line, "\n")
-        login_info = str.split(line, ",", 2)
-        logins[login_info[0]] = login_info[1]
     while True:
         while success == False:
             os.system('cls')
