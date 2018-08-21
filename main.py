@@ -77,7 +77,7 @@ def register_user():    # Function to register a new user
     c.execute("insert into login_history (username, hostname, ip, datetime, result) values (?, ?, ?, ?, ?)", (register_uname, host_name, host_ip, str(datetime.now()), "ACCOUNT CREATION"))
     conn.commit()
     print("\nUser successfully created.")
-    os.sleep(3)
+    time.sleep(3)
     logged_in = register_uname
     conn.commit()
     c.close()
@@ -87,7 +87,7 @@ def register_user():    # Function to register a new user
 def log_out():  # Function to log the user out
     logged_in = ""
     print("\nYou have successfully logged out.\n")
-    os.sleep(3)
+    time.sleep(3)
     return logged_in
 
 
@@ -124,13 +124,13 @@ def admin_panel(logged_in):     # Function that displays the admin only menu
             while success == False:
                 ip = input(str("Connect to: "))
                 print("\nAttempting connection to host " + ip + "\n")
-                os.sleep(3)
+                time.sleep(3)
                 if ip == "192.168.1.1":
                     username = input("Username: ")
                     password = getpass.getpass()
                     success = True
                     print("Attempting log in to " + ip)
-                    os.sleep(3)
+                    time.sleep(3)
             ssh = paramiko.SSHClient()
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             ssh.connect(ip, port=22, username=username, password=password, look_for_keys=False, timeout=None)
@@ -198,7 +198,7 @@ def menu():     # Function that displays the standard menu for non-admin users
         if choice == "1":
             if logged_in != "":
                 print("\nYou are already logged in!")
-                os.sleep(3)
+                time.sleep(3)
             else:
                 logged_in = cred_check()
         elif choice == "2":
@@ -208,12 +208,12 @@ def menu():     # Function that displays the standard menu for non-admin users
                 logged_in = log_out()
             else:
                 print("No user is logged in!\n")
-                os.sleep(3)
+                time.sleep(3)
         elif choice == "4":
             quit()
         else:
             print("Please enter a valid choice.")
-            os.sleep(3)
+            time.sleep(3)
 
 
 def menu_admin(logged_in):      # Function that displays the admin specific selection menu
@@ -237,7 +237,7 @@ def menu_admin(logged_in):      # Function that displays the admin specific sele
             quit()
         else:
             print("Please enter a valid choice.")
-            os.sleep(3)
+            time.sleep(3)
 
 
 def two_factor(size=8, chars=string.ascii_uppercase + string.digits):   # Function to generate and send the 2 factor authentication SMS code
