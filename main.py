@@ -76,8 +76,9 @@ def register_user():    # Function to register a new user
     host_name, host_ip = get_hostname_ip()
     c.execute("insert into login_history (username, hostname, ip, datetime, result) values (?, ?, ?, ?, ?)", (register_uname, host_name, host_ip, str(datetime.now()), "ACCOUNT CREATION"))
     conn.commit()
-    print("\nUser successfully created.")
     time.sleep(3)
+    print("\nUser successfully created.")
+    time.sleep(2)
     logged_in = register_uname
     conn.commit()
     c.close()
@@ -109,7 +110,7 @@ def admin_panel(logged_in):     # Function that displays the admin only menu
             while True:
                 new_process = process_watcher()
                 process_owner = new_process.GetOwner()
-                process_owner = "%s\\%s" % (process_owner[0],process_owner[2])
+                process_owner = "%s\\%s" % (process_owner[0], process_owner[2])
                 executable = new_process.ExecutablePath
                 pid = new_process.ProcessId
                 parent_pid = new_process.ParentProcessId
